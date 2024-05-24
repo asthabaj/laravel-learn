@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Job;
+
+// Route::get('/', function () {
+//     $jobs = Job::all();
+//     dd($jobs[0] -> title);
+// });
+
+
 Route::get('/', function () {
     return view('home');
 });
@@ -12,47 +20,15 @@ Route::get('/hi', function () {
 
 Route::get('/jobs', function () {
     return view('jobs',[
-        //'greeting' => 'hello', //access to $geeting key value pair of arrays
-        'jobs' => [//list of jobs
-            [
-                'id'=>1,
-                'title' => 'director',
-                'salary' => '$500',
-            ],
-            [
-                'id'=>2,
-                'title' => 'programmer',
-                'salary' => '$600',
-            ],
-            [
-                'id'=>3,
-                'title' => 'teacher',
-                'salary' => '$400',
-            ],
-        ]
+        
+        'jobs' => Job::all()
+
     ]);
 });
 
 Route::get('/jobs/{id}', function ($id) {
-    $jobs = [//list of jobs
-        [
-            'id'=>1,
-            'title' => 'director',
-            'salary' => '$500',
-        ],
-        [
-            'id'=>2,
-            'title' => 'programmer',
-            'salary' => '$600',
-        ],
-        [
-            'id'=>3,
-            'title' => 'teacher',
-            'salary' => '$400',
-        ],
-    ];
-    
-    $job= \Illuminate\Support\Arr::first($jobs, fn($jobs) => $jobs['id'] == $id);
+    $job = Job::find($id);
+   
     return view('job',['job' => $job]);
 });
 
