@@ -19,10 +19,11 @@ Route::get('/hi', function () {
 });
 
 Route::get('/jobs', function () {
+    //$jobs= Job::with('employer')->get();//eager loading jobs along with employer for each
+    $jobs= Job::with('employer')->paginate(3);
     return view('jobs',[
         
-        'jobs' => Job::all()
-
+        'jobs' => $jobs
     ]);
 });
 
