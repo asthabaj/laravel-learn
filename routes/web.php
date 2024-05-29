@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\RegisteredUSerController;
 use Illuminate\Support\Facades\Route;
-
-use App\Models\Job;
 
 // Route::get('/', function () {
 //     $jobs = Job::all();
@@ -10,44 +10,40 @@ use App\Models\Job;
 // });
 
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// }); same as this
+Route::view('/','home');
 
+// //Index
+// Route::get('/jobs', [JobController::class,'index']
 
-Route::get('/jobs', function () {
-    //$jobs= Job::with('employer')->get();//eager loading jobs along with employer for each
-    $jobs= Job::with('employer')->latest()->paginate(3);
-    return view('jobs.index',[
-        
-        'jobs' => $jobs
-    ]);
-});
+// );
 
-Route::get('/jobs/create', function () {
-    return view('jobs.create');
-});
+// //Create jobs
+// Route::get('/jobs/create',[JobController::class,'create']);
 
-Route::get('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
-   
-    return view('jobs.show',['job' => $job]);
-});//wildcard generally bottom
+// //store new job
+// route::post('/jobs',[JobController::class,'store']);
 
-route::post('/jobs',function()
-{
-    request()->validate([
-        'title' => ['required','min:3'],
-        'salary' => ['required']
-    ]);
-    Job::create([
-        'title' => request('title'),
-        'salary' => request('salary'),
-        'employer_id' => 1
-    ]);
-    return redirect('/jobs');
-});
+// //Show a job
+// Route::get('/jobs/{job}', [JobController::class,'show']);//wildcard generally bottom
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+// //update
+// Route::patch('/jobs/{job}', [JobController::class,'update']);
+
+// //destroy
+// Route::delete('/jobs/{job}', [JobController::class,'destroy']);
+
+// //edit
+// Route::get('/jobs/{job}/edit', [JobController::class,'edit']);
+
+Route::resource('jobs',JobController::class);
+
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
+Route::view('/contact','contact');
+
+//Auth
+Route::get('/register',[RegisteredUserController::class,'create']);
