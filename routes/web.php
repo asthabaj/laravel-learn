@@ -2,18 +2,20 @@
 
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUSerController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
+
 
 // Route::get('/', function () {
 //     $jobs = Job::all();
 //     dd($jobs[0] -> title);
 // });
 
-
+Route::view('/','home');
 // Route::get('/', function () {
 //     return view('home');
 // }); same as this
-Route::view('/','home');
+
 
 // //Index
 // Route::get('/jobs', [JobController::class,'index']
@@ -47,3 +49,11 @@ Route::view('/contact','contact');
 
 //Auth
 Route::get('/register',[RegisteredUserController::class,'create']);
+
+Route::post('/register',[RegisteredUserController::class,'store']);
+
+Route::get('/login',[SessionController::class,'create']);
+
+Route::post('/login',[SessionController::class,'store']);
+
+Route::post('/logout',[SessionController::class,'destroy']);
