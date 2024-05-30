@@ -18,29 +18,27 @@ Route::view('/','home');
 
 
 // //Index
-// Route::get('/jobs', [JobController::class,'index']
-
-// );
+Route::get('/jobs', [JobController::class,'index']);
 
 // //Create jobs
-// Route::get('/jobs/create',[JobController::class,'create']);
+Route::get('/jobs/create',[JobController::class,'create']);
 
 // //store new job
-// route::post('/jobs',[JobController::class,'store']);
+route::post('/jobs',[JobController::class,'store'])-> middleware('auth');
 
 // //Show a job
-// Route::get('/jobs/{job}', [JobController::class,'show']);//wildcard generally bottom
+Route::get('/jobs/{job}', [JobController::class,'show']);//wildcard generally bottom
 
 // //update
-// Route::patch('/jobs/{job}', [JobController::class,'update']);
+Route::patch('/jobs/{job}', [JobController::class,'update']);
 
 // //destroy
-// Route::delete('/jobs/{job}', [JobController::class,'destroy']);
+Route::delete('/jobs/{job}', [JobController::class,'destroy']);
 
 // //edit
-// Route::get('/jobs/{job}/edit', [JobController::class,'edit']);
+Route::get('/jobs/{job}/edit', [JobController::class,'edit'])-> middleware('auth')->can('edit-job');
 
-Route::resource('jobs',JobController::class);
+// Route::resource('jobs',JobController::class);
 
 // Route::get('/contact', function () {
 //     return view('contact');
