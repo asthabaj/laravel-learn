@@ -51,7 +51,7 @@ class JobController extends Controller
 //        }
     // Content for users who cannot edit the job
 
-        Gate::authorize('edit-job', $job);
+        Gate::authorize('edit', $job);
         
         return view('jobs.edit',['job' => $job]); 
     }
