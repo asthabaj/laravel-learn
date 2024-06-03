@@ -3,19 +3,21 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisteredUSerController;
 use App\Http\Controllers\SessionController;
+use App\Jobs\TranslateJob;
 use App\Mail\JobPosted;
+use App\Models\Job;
 use Faker\Guesser\Name;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
-
-Route::get('test', function () {
-    Mail::to('something@email.com')->send(
-        new JobPosted()
-    );
-    return ('done');
+Route::get('test',function (){
+    $job = Job::first();
+    TranslateJob::dispatch($job);
+    
+    return 'done';
 });
+
 
 // Route::get('/', function () {
 //     $jobs = Job::all();
